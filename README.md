@@ -17,3 +17,12 @@ You can recreate this project in Visual Studio, Xamarin Studio or CloudSharper b
  3. Add an entry point "`<div id="main"></div>`" to `index.html` in the body tag before the `<script>` link.
 
 Enjoy!
+
+
+## Hello Warp
+
+http://websharper.com/blog-entry/4409
+
+```
+Install-Package WebSharper.Warp
+```
