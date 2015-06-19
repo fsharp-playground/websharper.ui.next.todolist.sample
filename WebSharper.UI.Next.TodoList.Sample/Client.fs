@@ -14,7 +14,7 @@ open WebSharper.UI.Next
 
 [<JavaScript>]
 module Code = 
-    [<Literal>]
+    [<Literal>] 
     let template = __SOURCE_DIRECTORY__ + "/index.html"
     
     type IndexTemplate = Templating.Template<template>
