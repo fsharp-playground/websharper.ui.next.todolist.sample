@@ -1,9 +1,16 @@
 namespace WebSharper.UI.Next.TodoList.Sample
 
+#if INTERACTIVE 
+#I @"bin"
+#r "WebSharper.Core.dll"
+#r "WebSharper.JavaScript.dll"
+#r "WebSharper.UI.Next.dll"
+#r "WebSharper.UI.Next.Templating.dll"
+#endif
+
 open WebSharper
-open WebSharper.JavaScript
-open WebSharper.JQuery
 open WebSharper.UI.Next
+
 
 [<JavaScript>]
 module Code = 
@@ -26,6 +33,8 @@ module Code =
                                                      Done = Var.Create false } ]
     
     let NewTaskName = Var.Create ""
+
+    let rs = IndexTemplate.ListItem2.Doc |>  Doc.Convert
     
     let AddHandler = 
         fun _ -> 
