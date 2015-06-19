@@ -11,40 +11,53 @@ open WebSharper
 [<JavaScript>]
 
 (* https://github.com/intellifactory/websharper.ui.next/blob/master/docs/Tutorial.md *)
+(* New: http://websharper.com/docs/ui.next *)
 
 module Jw = 
     open WebSharper.UI.Next
     open WebSharper.UI.Next.Html
-    
-    type TodoItem = 
-        { Done : Var<bool>
-          Key : Key
-          TodoText : string }
-    
-    type TodoItem with
-        static member Create s = 
-            { Key = Key.Fresh()
-              TodoText = s
-              Done = Var.Create false }
-    
-    type Model = 
-        { Items : ListModel<Key, TodoItem> }
-    
-    let CreateModel() = { Items = ListModel.Create (fun item -> item.Key) [] }
-    
-    /// Text node
-    let txt t = Doc.TextNode t
-    
-    /// Input box backed by a variable x
-    let input x = Doc.Input x
-    
-    /// Button with a given caption and handler
-    let button name handler = Doc.Button name handler
-    
-    /// Renders an item.
-    let RenderItem coll todo = 
-        TR0 [ TD0 [ todo.Done.View
-                    |> View.Map(fun isDone -> 
-                           if isDone then Del [] [ txt todo.TodoText ]
-                           else txt todo.TodoText)
-                    |> Doc.EmbedView ] ]
+   
+    type LoginData = { Username: string; Password: string }
+
+    let Hello = 
+        let rvContent = Var.Create ""
+        let vUpperContent =
+            rvContent.View
+            |> View.Map (fun t -> t.ToUpper())
+
+        Div [] [
+            Doc.Input [] rvContent
+            Label [] [Doc.TextView vUpperContent]
+        ]
+
+    let JwView =
+        let rvContent = Var.Create "initial value"
+        let vContent = rvContent.View
+        // vContent's current value is now "initial value"
+        rvContent.Value <- "new value"
+
+    let Login = 
+        let rvSubmit = Var.Create ()
+        let rvUsername = Var.Create ""
+        let rvPassword = Var.Create ""
+        ()
+
+        (*
+        let vLoginResult =
+            View.Const (fun u p -> Some { Username = u; Password = p })
+            <*> rvUsername.View
+            <*> rvPassword.View
+            |> View.SnapshotOn () rvSubmit.View
+            |> View.MapAsync (function
+                | None ->
+                    async { return () }
+                | Some loginData ->
+                    Rpc.LoginUser loginData)
+
+        Div [] [
+            Doc.Input [] rvUsername
+            Doc.PasswordBox [] rvPassword
+            Doc.Button "Log in" [] (Var.Set rvSubmit)
+            vLoginResult |> View.Map (fun () -> Doc.Empty) |> Doc.EmbedView
+        ]
+        *)

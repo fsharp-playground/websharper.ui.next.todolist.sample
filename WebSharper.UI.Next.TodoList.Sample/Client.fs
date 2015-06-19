@@ -54,3 +54,4 @@ module Code =
         IndexTemplate.Main.Doc
             (ListContainer = ListInfo, NewTaskName = NewTaskName, Add = AddHandler, ClearCompleted = ClearHandler) 
         |> Doc.RunById "tasks"
+        Jw.Hello |> Doc.RunById "jw"
