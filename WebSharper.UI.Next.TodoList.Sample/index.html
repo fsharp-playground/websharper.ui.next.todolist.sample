@@ -18,7 +18,27 @@
         }
 
             .task-text.checked {
-                color: red;
+                color: #808080;
+            }
+
+            button {
+                background-color: #f3f2f2;
+                margin: 3px 3px;
+                padding: 0 8px;
+                height: 25px;
+                font-weight: bolder;
+            }
+
+            input {
+                height: 25px;
+                margin: 10px;
+                padding:0 5px;
+            }
+            .control {
+                margin: 15px 0;
+            }
+            input[type=checkbox] {
+                vertical-align: middle;
             }
     </style>
 
@@ -38,7 +58,7 @@
                 <button data-event-click="Clear">Clear</button>
             </li>
         </ul>
-        <div>
+        <div class="control">
             <label>New task: <input data-var="NewTaskName" placeholder="Add task here" /></label>
             <button data-event-click="Add">Add</button>
             <div>You are about to add: ${NewTaskName}</div>

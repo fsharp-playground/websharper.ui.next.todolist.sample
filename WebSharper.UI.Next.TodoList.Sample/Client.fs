@@ -22,7 +22,7 @@ module Code =
                                                      Done = Var.Create true }
                                                    { Name = "Have lunch"
                                                      Done = Var.Create false }
-                                                   { Name = "Have lunch"
+                                                   { Name = "Play football"
                                                      Done = Var.Create false } ]
     
     let NewTaskName = Var.Create ""
