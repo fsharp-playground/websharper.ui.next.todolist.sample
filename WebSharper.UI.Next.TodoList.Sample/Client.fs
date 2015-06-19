@@ -33,16 +33,15 @@ module Code =
                         Done = Var.Create false }
             Var.Set NewTaskName ""
     
+    let Remove task = fun _ -> Tasks.RemoveByKey task.Name
+    let ShowDone task = Attr.DynamicClass "checked" task.Done.View id
+    let Convert = 
+        fun task -> 
+            IndexTemplate.ListItem.Doc
+                (Task = View.Const task.Name, Clear = Remove task, Done = task.Done, ShowDone = ShowDone task)
     let ClearHandler = fun _ -> Tasks.RemoveBy(fun task -> task.Done.Value)
-    let ListHandler = 
-        (ListModel.View Tasks 
-         |> Doc.Convert
-                (fun task -> 
-                IndexTemplate.ListItem.Doc
-                    (Task = View.Const task.Name, Clear = (fun _ -> Tasks.RemoveByKey task.Name), Done = task.Done, 
-                     ShowDone = Attr.DynamicClass "checked" task.Done.View id)))
-
+    let ListInfo = (ListModel.View Tasks |> Doc.Convert Convert)
     let Main = 
         IndexTemplate.Main.Doc
-            (ListContainer = ListHandler, NewTaskName = NewTaskName, Add = AddHandler, ClearCompleted = ClearHandler) 
+            (ListContainer = ListInfo, NewTaskName = NewTaskName, Add = AddHandler, ClearCompleted = ClearHandler) 
         |> Doc.RunById "tasks"
